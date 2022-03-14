@@ -1,0 +1,56 @@
+Principal:
+    Chama função menu principal
+
+Menu principal:
+    desenha titulo dark cave na tela
+    desenha o menu principal
+    chama a função de escolha de opção
+    caso jogador escolha sair:
+        sai do jogo
+    caso jogador escolha jogar:
+        reseta e cria o mapa
+        chama o loop do jogo 
+
+loop do jogo:
+    desenha o mapa
+    chama a função de escolha de opção
+    caso jogador escolha sair:
+        menu principal
+    caso jogador encontre um inimigo:
+        chama a função de batalha
+    senão:
+        chama a função de movimento
+
+função de batalha:
+    desenha espada
+    caso jogador escolha fugir e não seja chefão:
+        testa a chance de fugir
+        caso seja sucesso:
+            remove inimigo
+            loop do jogo
+    caso jogador escolha atacar:
+        testa a chance de acertar
+        caso seja sucesso:
+            remove vida do inimigo de acordo com a arma do jogador
+            caso vida do inimigo seja 0:
+                remove inimigo
+                loop do jogo
+    inimigo ataca
+    testa a chance de acertar
+    caso seja sucesso:
+        remove vida do jogador de acordo com a arma do inimigo
+        caso vida do jogador seja 0:
+            mensagem de fim de jogo
+            pausa do jogo esperando interação do jogador
+            menu principal
+
+função de movimento:
+    caso jogador escolha andar para cima e seja possivel:
+        anda para cima
+    caso jogador escolha andar para baixo e seja possivel:
+        anda para baixo
+    caso jogador escolha andar para esquerda e seja possivel:
+        anda para esquerda
+    caso jogador escolha andar para direita e seja possivel:
+        anda para direita
+    

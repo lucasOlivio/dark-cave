@@ -51,18 +51,22 @@ void mainMenu() {
     do {
         system("cls");
         mainTitle();
-        cout << "1 - Start game" << endl;
-        cout << "2 - Exit game" << endl;
-        cout << "Choose an option: ";
+        cout << "" << endl;
+        cout << "                                                        MAIN MENU" << endl;
+        cout << "                                                            1 - Start game" << endl;
+        cout << "                                                            2 - Exit game" << endl;
+        cout << "                                                        Choose an option: ";
         cin >> option;
     } while (option < 1 || option > 2);
 
+    cout << " " << endl;
     switch (option) {
         case 1:
-            cout << "Starting game..." << endl;
+            cout << "                                                        Starting game..." << endl;
             break;
         case 2:
-            cout << "Bye bye..." << endl;
+            cout << "                                                        Bye bye..." << endl;
+            cout << " " << endl;
             system("pause");
             break;
     }

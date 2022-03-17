@@ -11,7 +11,8 @@
                 "-o",
                 "${workspaceFolder}\\dcTest.exe",
                 "-g",
-                "main.cpp"
+                "main.cpp",
+                "map/map.cpp"
             ],
             "group": {
                 "kind": "build",

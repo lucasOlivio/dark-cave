@@ -12,8 +12,12 @@
 
 #include <iostream>
 #include <string>
+#include "map/map.hpp"
 
 using namespace std;
+
+const int MAP_HEIGHT = 9;
+const int MAP_WIDTH = 9;
 
 // Title screen display
 void mainTitle();
@@ -51,7 +55,7 @@ void mainMenu() {
     do {
         system("cls");
         mainTitle();
-        cout << "" << endl;
+        cout << endl;
         cout << "                                                        MAIN MENU" << endl;
         cout << "                                                            1 - Start game" << endl;
         cout << "                                                            2 - Exit game" << endl;
@@ -59,10 +63,11 @@ void mainMenu() {
         cin >> option;
     } while (option < 1 || option > 2);
 
-    cout << " " << endl;
+    cout << endl;
     switch (option) {
         case 1:
             cout << "                                                        Starting game..." << endl;
+            gameLoop();
             break;
         case 2:
             cout << "                                                        Bye bye..." << endl;
@@ -74,5 +79,8 @@ void mainMenu() {
 
 // Main game loop
 void gameLoop() {
-
+    system("cls");
+    mainTitle();
+    Map map(MAP_HEIGHT, MAP_WIDTH);
+    map.displayMap();
 }

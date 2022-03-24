@@ -1,32 +1,21 @@
 #include <iostream>
 #include <vector>
 #include "map.hpp"
+#include "../common.hpp"
+#include "../player/player.hpp"
 
 using namespace std;
 
 
-/**
- * @brief Construct a new Map:: Map object
- * 
- * @param height Map X size
- * @param width Map Y size
- */
-Map::Map(int height, int width) {
-    map = createMap(height, width);
-    half_width = width / 2;
-    half_height = height / 2;
+// Construct a new Map:: Map object
+Map::Map(int width, int height) {
+    this->map = createMap(height, width);
+    this->width = width;
+    this->height = height;
 }
 
-/**
- * @brief Create a new map randomizing the tiles 
- * to create enemies and set the player position
- * 
- * @param height Map X size
- * @param width Map Y size
- * 
- * @return vector<vector<int>> Map
- */
-vector<vector<int>> Map::createMap(int height, int width) {
+// Create a new map randomizing the tiles to create enemies and set the player position
+vector<vector<int>> Map::createMap(int width, int height) {
     vector<vector<int>> map(height, vector<int>(width));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -36,25 +25,39 @@ vector<vector<int>> Map::createMap(int height, int width) {
     return map;
 }
 
-/**
- * @brief Display the map on terminal screen
- * 
- */
-void Map::displayMap() {
+// Display the map on terminal screen
+void Map::displayMap(Player& player) {
     cout << endl;
-    for (int i = 0; i < map.size(); i++) {
-        cout << "                                                        ";
-        if (half_height != i) {
-            cout << "| ";
-        } else {
-            cout << "  ";
-        }
-        for (int j = 0; j < map[i].size(); j++) {
-            cout << "X" << " ";
-        }
-        if(half_height != i) {
-            cout << "|";
+    for (int i = 0; i < this->map.size(); i++) {
+        cout << CENTER_TEXT;
+        for (int j = 0; j < this->map[i].size(); j++) {
+            if(i == player.getPosition()[1] && j == player.getPosition()[0]) {
+                cout << "O";
+            } else {
+                cout << "-";
+            }
+            cout << " ";
         }
         cout << endl;
     }
+}
+
+// Get the map vector
+vector<vector<int>> Map::getMap() {
+    return this->map;
+}
+
+// Get the map x size
+int Map::getWidth() {
+    return this->width;
+}
+
+// Get the map y size
+int Map::getHeight() {
+    return this->height;
+}
+
+// Validate if the position is a valid map position
+bool Map::isValidPosition(int x, int y) {
+    return (x >= 0 && x < this->width && y >= 0 && y < this->height);
 }

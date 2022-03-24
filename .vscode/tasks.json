@@ -12,7 +12,8 @@
                 "${workspaceFolder}\\dcTest.exe",
                 "-g",
                 "main.cpp",
-                "map/map.cpp"
+                "map/map.cpp",
+                "player/player.cpp",
             ],
             "group": {
                 "kind": "build",

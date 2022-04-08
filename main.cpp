@@ -18,9 +18,6 @@
 
 using namespace std;
 
-const int MAP_HEIGHT = 9;
-const int MAP_WIDTH = 9;
-
 // Title screen display
 void mainTitle();
 
@@ -80,9 +77,10 @@ void mainMenu() {
 // Main game loop
 void gameLoop() {
     system("cls");
-    Map map(MAP_WIDTH, MAP_HEIGHT);
-    Player player(MAP_WIDTH, MAP_HEIGHT);
+    Player player;
+    Map map(player);
     int option;
+    bool moved = true;
 
     do {
         system("cls");
@@ -101,19 +99,19 @@ void gameLoop() {
         switch (option) {
             case 1:
                 cout << CENTER_TEXT << "Move up" << endl;
-                player.move("up", map);
+                moved = map.movePlayer("up", player);
                 break;
             case 2:
                 cout << CENTER_TEXT << "Move right" << endl;
-                player.move("right", map);
+                moved = map.movePlayer("right", player);
                 break;
             case 3:
                 cout << CENTER_TEXT << "Move down" << endl;
-                player.move("down", map);
+                moved = map.movePlayer("down", player);
                 break;
             case 4:
                 cout << CENTER_TEXT << "Move left" << endl;
-                player.move("left", map);
+                moved = map.movePlayer("left", player);
                 break;
             case 5:
                 char exit;
@@ -125,8 +123,13 @@ void gameLoop() {
                     cout << CENTER_TEXT << "Bye bye..." << endl;
                     cout << " " << endl;
                     system("pause");
+                    system("exit");
                 }
                 break;
+        }
+        if (!moved) {
+            cout << CENTER_TEXT << "You can't move there!" << endl;
+            cout << " " << endl;
         }
     } while (option != 5);
 }

@@ -8,20 +8,24 @@ using namespace std;
 
 
 // Construct a new Map:: Map object
-Map::Map(int width, int height) {
-    this->map = createMap(height, width);
-    this->width = width;
-    this->height = height;
+Map::Map(Player& player) {
+    this->map = createMap(MAP_WIDTH, MAP_HEIGHT, player);
+    cout << "SIZE MAP: " << this->map.size() << endl;
+
+    // Set the player position
+    const int* playerPosition = player.getPosition();
+    this->setCoordinates(playerPosition[0], playerPosition[1], Elements::PLAYER);
 }
 
 // Create a new map randomizing the tiles to create enemies and set the player position
-vector<vector<int>> Map::createMap(int width, int height) {
-    vector<vector<int>> map(height, vector<int>(width));
+vector<vector<char>> Map::createMap(int width, int height, Player& player) {
+    vector<vector<char>> map(height, vector<char>(width));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            map[i][j] = 0;
+            map[i][j] = '-';
         }
     }
+
     return map;
 }
 
@@ -31,33 +35,59 @@ void Map::displayMap(Player& player) {
     for (int i = 0; i < this->map.size(); i++) {
         cout << CENTER_TEXT;
         for (int j = 0; j < this->map[i].size(); j++) {
-            if(i == player.getPosition()[1] && j == player.getPosition()[0]) {
-                cout << "O";
-            } else {
-                cout << "-";
-            }
-            cout << " ";
+            cout << this->map[i][j] << " ";
         }
         cout << endl;
     }
 }
 
 // Get the map vector
-vector<vector<int>> Map::getMap() {
+vector<vector<char>> Map::getMap() {
     return this->map;
 }
 
-// Get the map x size
-int Map::getWidth() {
-    return this->width;
+// Move the player 1 step in the map to the given direction
+bool Map::movePlayer(string direction, Player& player) {
+    const int* old_position = player.getPosition();
+    int x = old_position[0];
+    int y = old_position[1];
+
+    if (direction == "up") {
+        y--;
+    } else if (direction == "right") {
+        x++;
+    } else if (direction == "down") {
+        y++;
+    } else if (direction == "left") {
+        x--;
+    }
+
+    if (this->setCoordinates(x, y, Elements::PLAYER)) {
+        // If the new position is valid for the player, 
+        // then set the old position to clear and move the player
+        this->setCoordinates(old_position[0], old_position[1], Elements::CLEARED);
+        player.setPosition(x, y);
+        return true;
+    }
+
+    return false;
 }
 
-// Get the map y size
-int Map::getHeight() {
-    return this->height;
+// Set a new character to the map
+bool Map::setCoordinates(int x, int y, Elements element) {
+    if (!this->isValidPosition(x, y)) {
+        return false;
+    }
+
+    cout << "ELEMENT: " << static_cast<char>(element) << endl;
+    cout << "SIZE 1: " << this->map.size() << endl;
+    cout << "SIZE 2: " << this->map[y].size() << endl;
+    this->map[y][x] = static_cast<char>(element);
+
+    return true;
 }
 
 // Validate if the position is a valid map position
 bool Map::isValidPosition(int x, int y) {
-    return (x >= 0 && x < this->width && y >= 0 && y < this->height);
+    return (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT);
 }

@@ -2,7 +2,6 @@
 #define PLAYER_HPP
 
 #include <iostream>
-#include "../map/map.hpp"
 
 using namespace std;
 
@@ -11,31 +10,21 @@ class Player {
         /**
          * @brief Construct a new Player:: Player object
          * 
-         * @param map_height Map X size
-         * @param map_width Map Y size
+         * @param position Player's coordinate position in the map
          */
-        Player(int map_width, int map_height);
+        Player();
 
         /**
-         * @brief Get the player X, Y coordinates in the map
-         * 
-         * @return player coordinates inside the map
+         * @brief Get the player's position (x, y) in the map
          */
-        int * getPosition();
+        const int* getPosition() const;
 
         /**
-         * @brief Move the player 1 step in the map 
-         * to the given direction
-         * 
-         * @param direction Direction to move (up, right, down, left)
-         * @param map Map to move the player
-         * 
-         * @return true If the player can move
-         * @return false If the player can't move
+         * @brief Set the player's new position (x, y) in the map
          */
-        bool move(string direction, Map& map);
+        void setPosition(int x, int y);
 
-    private:
+    protected:
         int position[2];
 };
 

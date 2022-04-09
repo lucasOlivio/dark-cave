@@ -22,7 +22,7 @@ vector<vector<char>> Map::createMap(int width, int height, Player& player) {
     vector<vector<char>> map(height, vector<char>(width));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            map[i][j] = '-';
+            map[i][j] = static_cast<char>(Elements::UNDISCOVERED);
         }
     }
 

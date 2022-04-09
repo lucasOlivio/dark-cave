@@ -47,7 +47,8 @@ class Map {
         enum class Elements : char {
             PLAYER = 'P',
             ENEMY = 'X',
-            CLEARED = 'O',
+            CLEARED = (char)250,
+            UNDISCOVERED = (char)176
         };
 
         /**

@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string>
+#include <windows.h>
 #include "map/map.hpp"
 #include "player/player.hpp"
 #include "common.hpp"
@@ -29,6 +30,7 @@ void gameLoop();
 
 // Main controller of the program
 int main() {
+    SetConsoleOutputCP(437);
     mainMenu();
     return 0;
 }
@@ -92,6 +94,10 @@ void gameLoop() {
         cout << CENTER_TEXT << "3 - Move down" << endl;
         cout << CENTER_TEXT << "4 - Move left" << endl;
         cout << CENTER_TEXT << "5 - Exit game" << endl;
+        if (!moved) {
+            cout << CENTER_TEXT << "You can't move there!" << endl;
+            cout << " " << endl;
+        }
         cout << CENTER_TEXT << "Choose an action: ";
         cin >> option;
 
@@ -119,17 +125,13 @@ void gameLoop() {
                 cin >> exit;
                 if (exit == 'n') {
                     option = 0;
-                } else {
+                } else if(exit == 'y') {
                     cout << CENTER_TEXT << "Bye bye..." << endl;
                     cout << " " << endl;
                     system("pause");
                     system("exit");
                 }
                 break;
-        }
-        if (!moved) {
-            cout << CENTER_TEXT << "You can't move there!" << endl;
-            cout << " " << endl;
         }
     } while (option != 5);
 }

@@ -14,8 +14,6 @@ Menu principal:
 loop do jogo:
     desenha o mapa
     chama a função de escolha de opção
-    caso jogador escolha sair:
-        menu principal
     caso jogador encontre um inimigo:
         chama a função de batalha
     senão:

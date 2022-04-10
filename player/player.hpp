@@ -1,31 +1,25 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <iostream>
+#include "../element/element.hpp"
 
 using namespace std;
 
-class Player {
+class Player: public Element {
     public:
         /**
-         * @brief Construct a new Player:: Player object
+         * @brief Construct a new Player:: Player object setting the default position, type and output.
          * 
-         * @param position Player's coordinate position in the map
          */
         Player();
 
         /**
-         * @brief Get the player's position (x, y) in the map
-         */
-        const int* getPosition() const;
-
-        /**
-         * @brief Set the player's new position (x, y) in the map
+         * @brief Set a new position (x, y) for the player object in the map.
+         * 
+         * @param x X position
+         * @param y Y position
          */
         void setPosition(int x, int y);
-
-    protected:
-        int position[2];
 };
 
 #endif // PLAYER_HPP

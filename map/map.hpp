@@ -1,8 +1,20 @@
+/**
+ * @file map.cpp
+ * @author Lucas Olivio (lucas27_olivio@hotmail.com)
+ * @brief Map class definition
+ * @version 0.1
+ * @date 2022-04-10
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ * Class for the game map
+ */
+
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <iostream>
 #include <vector>
+#include "../element/element.hpp"
 #include "../player/player.hpp"
 
 using namespace std;
@@ -12,23 +24,15 @@ class Map {
         /**
          * @brief Construct a new Map:: Map object
          * 
-         * @param player Player object
+         * @param player Player element object
          */
-        Map(Player& player);
+        Map(Player* player);
 
         /**
          * @brief Display the map on terminal screen
          * 
-         * @param player Player object
          */
-        void displayMap(Player& player);
-
-        /**
-         * @brief Get the map vector
-         * 
-         * @return map vector
-         */
-        vector<vector<char>> getMap();
+        void displayMap();
 
         /**
          * @brief Move the player 1 step in the map 
@@ -40,16 +44,12 @@ class Map {
          * @return true If the player moved
          * @return false If the player couldn't move
          */
-        bool movePlayer(string direction, Player& player);
+        bool movePlayer(string direction, Player* player);
 
     private:
-        vector<vector<char>> map;
-        enum class Elements : char {
-            PLAYER = 'P',
-            ENEMY = 'X',
-            CLEARED = (char)250,
-            UNDISCOVERED = (char)176
-        };
+        vector<vector<Element*>> map;
+        Element *pPath_undiscovered;
+        Element *pPath_cleared;
 
         /**
          * @brief Create a new map randomizing the tiles 
@@ -60,7 +60,7 @@ class Map {
          * 
          * @return vector<vector<int>> Map
          */
-        vector<vector<char>> createMap(int width, int height, Player& player);
+        vector<vector<Element*>> createMap(int width, int height);
 
         /**
          * @brief Validate if the position is a valid map position
@@ -70,18 +70,15 @@ class Map {
         bool isValidPosition(int x, int y);
 
         /**
-         * @brief Set a new character to the map position
+         * @brief Set a new element to the map position
          * 
          * @param x X position
          * @param y Y position
-         * @param character Character to set
-         * P - Player object
-         * X - Defeated enemy object
-         * O - Cleared path
+         * @param element Element to set
          * 
          * @return true If the position is valid
          */
-        bool setCoordinates(int x, int y, Elements element);
+        bool setElement(int x, int y, Element* element);
 };
 
 #endif // MAP_HPP

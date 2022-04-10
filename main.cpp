@@ -80,44 +80,45 @@ void mainMenu() {
 void gameLoop() {
     system("cls");
     Player player;
-    Map map(player);
+    Map map(&player);
     int option;
     bool moved = true;
 
     do {
         system("cls");
         mainTitle();
-        map.displayMap(player);
+        map.displayMap();
         cout << endl;
-        cout << CENTER_TEXT << "1 - Move up" << endl;
-        cout << CENTER_TEXT << "2 - Move right" << endl;
-        cout << CENTER_TEXT << "3 - Move down" << endl;
+        cout << CENTER_TEXT << "8 - Move up" << endl;
+        cout << CENTER_TEXT << "6 - Move right" << endl;
+        cout << CENTER_TEXT << "2 - Move down" << endl;
         cout << CENTER_TEXT << "4 - Move left" << endl;
         cout << CENTER_TEXT << "5 - Exit game" << endl;
         if (!moved) {
+            cout << endl;
             cout << CENTER_TEXT << "You can't move there!" << endl;
-            cout << " " << endl;
+            cout << endl;
         }
         cout << CENTER_TEXT << "Choose an action: ";
         cin >> option;
 
         cout << endl;
         switch (option) {
-            case 1:
+            case 8:
                 cout << CENTER_TEXT << "Move up" << endl;
-                moved = map.movePlayer("up", player);
+                moved = map.movePlayer("up", &player);
+                break;
+            case 6:
+                cout << CENTER_TEXT << "Move right" << endl;
+                moved = map.movePlayer("right", &player);
                 break;
             case 2:
-                cout << CENTER_TEXT << "Move right" << endl;
-                moved = map.movePlayer("right", player);
-                break;
-            case 3:
                 cout << CENTER_TEXT << "Move down" << endl;
-                moved = map.movePlayer("down", player);
+                moved = map.movePlayer("down", &player);
                 break;
             case 4:
                 cout << CENTER_TEXT << "Move left" << endl;
-                moved = map.movePlayer("left", player);
+                moved = map.movePlayer("left", &player);
                 break;
             case 5:
                 char exit;

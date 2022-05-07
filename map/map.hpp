@@ -1,5 +1,5 @@
 /**
- * @file map.cpp
+ * @file map.hpp
  * @author Lucas Olivio (lucas27_olivio@hotmail.com)
  * @brief Map class definition
  * @version 0.1
@@ -16,6 +16,7 @@
 #include <vector>
 #include "../element/element.hpp"
 #include "../player/player.hpp"
+#include "../common.hpp"
 
 using namespace std;
 
@@ -46,10 +47,28 @@ class Map {
          */
         bool movePlayer(string direction, Player* player);
 
+        /**
+         * @brief Return the actual state of the game
+         * 
+         * @return The actual state of the game from the enum game_states
+         * 
+         */
+        game_states getState();
+
+        /**
+         * @brief Sets a new state to the game
+         * 
+         * @param state The new state of the game
+         * 
+         */
+        void setState(game_states state);
+
     private:
         vector<vector<Element*>> map;
         Element *pPath_undiscovered;
         Element *pPath_cleared;
+        Element *pTreasure;
+        game_states game_state;
 
         /**
          * @brief Create a new map randomizing the tiles 

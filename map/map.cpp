@@ -12,6 +12,8 @@
 
 #include <iostream>
 #include <vector>
+#include <assert.h>
+#include <ctime>
 #include "map.hpp"
 #include "../common.hpp"
 #include "../player/player.hpp"
@@ -31,19 +33,38 @@ Map::Map(Player* player){
         elements_types::PATH,
         elements_outputs::CLEARED
     );
-
     this->map = createMap(MAP_WIDTH, MAP_HEIGHT);
+    // Creates the treasure object and randomly places it on the map
+    int treasure_locations[3][2] = {
+        {0, MAP_HEIGHT / 2},
+        {MAP_WIDTH / 2, 0},
+        {MAP_WIDTH, MAP_HEIGHT / 2}
+    };
+    srand((unsigned) time(0));
+    int treasure_location = (rand() % 3) + 1;
+    this->pTreasure = new Element(
+        treasure_locations[treasure_location][0],
+        treasure_locations[treasure_location][1],
+        elements_types::TREASURE,
+        elements_outputs::UNDISCOVERED
+    );
+    const int* treasurePosition = this->pTreasure->getPosition();
+    this->setElement(treasurePosition[0], treasurePosition[1], this->pTreasure);
     // Set the player's initial position
     const int* playerPosition = player->getPosition();
     this->setElement(playerPosition[0], playerPosition[1], player);
+
+    // Initiates the gameplay
+    this->game_state = PLAYING;
 }
 
 // Create a new map randomizing the tiles to create enemies and set the player position
 vector<vector<Element*>> Map::createMap(int width, int height) {
-    vector<vector<Element*>> map(height, vector<Element*>(width));
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            map[i][j] = pPath_undiscovered;
+    vector<vector<Element*>> map(height + 1, vector<Element*>(width + 1));
+
+    for (int i = 0; i <= height; i++) {
+        for (int j = 0; j <= width; j++) {
+            map[i][j] = this->pPath_undiscovered;
         }
     }
 
@@ -95,12 +116,33 @@ bool Map::setElement(int x, int y, Element* element) {
         return false;
     }
 
-    this->map[y][x] = element;
-
-    return true;
+    // If the element in the new position is not a path reveals it.
+    elements_types type = this->map[y][x]->getType();
+    switch(type) {
+        case PATH: case PLAYER: // If the element is a path or player, just set the new element
+            this->map[y][x] = element;
+            return true;
+        case TREASURE: // If is a treasure the game is won, reveals the treasure
+            this->map[y][x]->setOutput(type);
+            this->game_state = WON;
+            return false;
+        default:
+            assert(!"Not a valid Element type!");
+            return false;
+    }
 }
 
 // Validate if the position is a valid map position
 bool Map::isValidPosition(int x, int y) {
-    return (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT);
+    return (x >= 0 && x <= MAP_WIDTH && y >= 0 && y <= MAP_HEIGHT);
+}
+
+// Return the actual state of the game
+game_states Map::getState() {
+    return this->game_state;
+}
+
+// Set new game state
+void Map::setState(game_states state) {
+    this->game_state = state;
 }

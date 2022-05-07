@@ -52,13 +52,19 @@ class Element {
          * @brief Set a new output for the element
          * 
          */
-        void setOutput(elements_outputs output);
+        void setOutput(elements_types element_type);
 
         /**
          * @brief Get the output of the element
          * 
          */
         char getOutput();
+
+        /**
+         * @brief Get the type of the element
+         * 
+         */
+        elements_types getType();
 
     protected:
         int position[2];

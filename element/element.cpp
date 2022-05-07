@@ -11,6 +11,7 @@
  */
 
 #include <iostream>
+#include <assert.h>
 #include "element.hpp"
 
 using namespace std;
@@ -38,12 +39,33 @@ int* Element::getPosition() {
     return this->position;
 }
 
-// Set a new output for the element
-void Element::setOutput(elements_outputs output) {
-    this->output = output;
+// Set a new output for the element based on its type
+void Element::setOutput(elements_types element_type) {
+    switch(element_type) {
+        case elements_types::PLAYER:
+            this->output = elements_outputs::PLAYER;
+            break;
+        case elements_types::ENEMY:
+            this->output = elements_outputs::ENEMY;
+            break;
+        case elements_types::PATH:
+            this->output = elements_outputs::CLEARED;
+            break;
+        case elements_types::TREASURE:
+            this->output = elements_outputs::TREASURE;
+            break;
+        default:
+            assert(!"Not a valid Element type!");
+            break;
+    }
 }
 
 // Get the output of the element
 char Element::getOutput() {
     return static_cast<char>(this->output);
+}
+
+// Get the type of the element
+elements_types Element::getType() {
+    return this->type;
 }

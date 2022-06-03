@@ -13,16 +13,37 @@
 #include <iostream>
 #include <vector>
 #include <assert.h>
-#include <ctime>
-#include "map.hpp"
+#include "../include/map.hpp"
 #include "../common.hpp"
-#include "../player/player.hpp"
+#include "../include/utils.hpp"
+#include "../include/player.hpp"
 
 using namespace std;
 
 
 // Construct a new Map:: Map object
 Map::Map(Player* player){
+    this->map = createMap(MAP_WIDTH, MAP_HEIGHT);
+
+    // Creates the treasure object and randomly places it on the map
+    this->pTreasure = createTreasure();
+
+    // Set the player's initial position
+    const int* playerPosition = player->getPosition();
+    this->setElement(playerPosition[0], playerPosition[1], player);
+
+    // Creates the list of enemies randomly placed on the map
+    for(int i = 0; i < ENEMY_NUMBER; i++){
+        this->enemies[i] = createEnemy();
+    }
+
+    // Initiates the gameplay
+    this->game_state = PLAYING;
+}
+
+// Create a new map randomizing the tiles to create enemies and set the player position
+vector<vector<Element*>> Map::createMap(int width, int height) {
+    // Default path elements for the hole map
     this->pPath_undiscovered = new Element(
         0, 0, 
         elements_types::PATH, 
@@ -33,33 +54,7 @@ Map::Map(Player* player){
         elements_types::PATH,
         elements_outputs::CLEARED
     );
-    this->map = createMap(MAP_WIDTH, MAP_HEIGHT);
-    // Creates the treasure object and randomly places it on the map
-    int treasure_locations[3][2] = {
-        {0, MAP_HEIGHT / 2},
-        {MAP_WIDTH / 2, 0},
-        {MAP_WIDTH, MAP_HEIGHT / 2}
-    };
-    srand((unsigned) time(0));
-    int treasure_location = (rand() % 3) + 1;
-    this->pTreasure = new Element(
-        treasure_locations[treasure_location][0],
-        treasure_locations[treasure_location][1],
-        elements_types::TREASURE,
-        elements_outputs::UNDISCOVERED
-    );
-    const int* treasurePosition = this->pTreasure->getPosition();
-    this->setElement(treasurePosition[0], treasurePosition[1], this->pTreasure);
-    // Set the player's initial position
-    const int* playerPosition = player->getPosition();
-    this->setElement(playerPosition[0], playerPosition[1], player);
-
-    // Initiates the gameplay
-    this->game_state = PLAYING;
-}
-
-// Create a new map randomizing the tiles to create enemies and set the player position
-vector<vector<Element*>> Map::createMap(int width, int height) {
+    // Initialize the map with the default path element
     vector<vector<Element*>> map(height + 1, vector<Element*>(width + 1));
 
     for (int i = 0; i <= height; i++) {
@@ -69,6 +64,47 @@ vector<vector<Element*>> Map::createMap(int width, int height) {
     }
 
     return map;
+}
+
+// Creates the treasure, randomizing its position
+Element* Map::createTreasure() {
+    // Treasure only possible locations are in the middle of the sides of the map
+    int treasure_locations[3][2] = {
+        {0, MAP_HEIGHT / 2},
+        {MAP_WIDTH / 2, 0},
+        {MAP_WIDTH, MAP_HEIGHT / 2}
+    };
+    int treasure_location = randomNumber(0, 3);
+    Element *pTreasure = new Element(
+        treasure_locations[treasure_location][0],
+        treasure_locations[treasure_location][1],
+        elements_types::TREASURE,
+        elements_outputs::TREASURE
+    );
+    const int* treasurePosition = pTreasure->getPosition();
+    this->setElement(treasurePosition[0], treasurePosition[1], pTreasure);
+    return pTreasure;
+}
+
+// Creates a new enemy, randomizing its position
+Element* Map::createEnemy() {
+    int enemy_x = randomNumber(0, MAP_WIDTH);
+    int enemy_y = randomNumber(0, MAP_HEIGHT);
+
+    // Validate if the position is a valid map position
+    while (!this->isValidPosition(enemy_x, enemy_y)) {
+        enemy_x = randomNumber(0, MAP_WIDTH);
+        enemy_y = randomNumber(0, MAP_HEIGHT);
+    }
+    Element *enemy = new Element(
+        enemy_x,
+        enemy_y,
+        elements_types::ENEMY,
+        elements_outputs::ENEMY
+    );
+    this->setElement(enemy_x, enemy_y, enemy);
+
+    return enemy;
 }
 
 // Display the map on terminal screen

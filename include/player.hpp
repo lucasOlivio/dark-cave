@@ -1,7 +1,19 @@
+/**
+ * @file player.hpp
+ * @author Lucas Olivio (lucas27_olivio@hotmail.com)
+ * @brief Player class definition
+ * @version 0.1
+ * @date 2022-04-10
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ * Class for the player object
+ */
+
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "../element/element.hpp"
+#include "element.hpp"
 
 using namespace std;
 

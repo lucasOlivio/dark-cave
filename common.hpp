@@ -1,7 +1,7 @@
 /**
  * @file common.hpp
  * @author Lucas Olivio (lucas27_olivio@hotmail.com)
- * @brief Common functions and constants
+ * @brief Common variables and constants
  * @version 0.1
  * @date 2022-04-10
  * 
@@ -20,9 +20,10 @@ const string CENTER_TEXT = "                                                    
 
 const int MAP_HEIGHT = 8;
 const int MAP_WIDTH = 8;
+const int ENEMY_NUMBER = 4;
 
 enum class elements_outputs: char {
-    PLAYER = 'P',
+    PLAYER = (char)127,
     ENEMY = (char)6,
     CLEARED = (char)250,
     UNDISCOVERED = (char)176,

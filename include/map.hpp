@@ -14,8 +14,8 @@
 #define MAP_HPP
 
 #include <vector>
-#include "../element/element.hpp"
-#include "../player/player.hpp"
+#include "element.hpp"
+#include "player.hpp"
 #include "../common.hpp"
 
 using namespace std;
@@ -68,6 +68,7 @@ class Map {
         Element *pPath_undiscovered;
         Element *pPath_cleared;
         Element *pTreasure;
+        Element* enemies[ENEMY_NUMBER];
         game_states game_state;
 
         /**
@@ -80,6 +81,20 @@ class Map {
          * @return vector<vector<int>> Map
          */
         vector<vector<Element*>> createMap(int width, int height);
+
+        /**
+         * @brief Creates the treasure, randomizing its position
+         * 
+         * @return Element* Treasure element
+         */
+        Element* createTreasure();
+
+        /**
+         * @brief Creates a new enemy, randomizing its position
+         * 
+         * @return Element* Enemy element
+         */
+        Element* createEnemy();
 
         /**
          * @brief Validate if the position is a valid map position

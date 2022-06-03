@@ -13,8 +13,8 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
-#include "map/map.hpp"
-#include "player/player.hpp"
+#include "include/map.hpp"
+#include "include/player.hpp"
 #include "common.hpp"
 
 using namespace std;
@@ -84,7 +84,7 @@ void redraw(Map* map) {
 }
 
 // Main game menu
-int mainGameMenu() {
+void mainGameMenu() {
     cout << endl;
     cout << CENTER_TEXT << "1 - Move up" << endl;
     cout << CENTER_TEXT << "2 - Move right" << endl;

@@ -10,11 +10,14 @@
             "args": [
                 "-o",
                 "${workspaceFolder}\\dcTest.exe",
+                "-I",
+                "${workspaceFolder}\\include",
                 "-g",
                 "main.cpp",
-                "map/map.cpp",
-                "player/player.cpp",
-                "element/element.cpp",
+                "src/map.cpp",
+                "src/player.cpp",
+                "src/element.cpp",
+                "src/utils.cpp"
             ],
             "group": {
                 "kind": "build",

@@ -1,5 +1,5 @@
 #include "../include/player.hpp"
-#include "../common.hpp"
+#include "../include/common.hpp"
 
 
 // Construct a new Player:: Player object

@@ -14,7 +14,7 @@
 #include <vector>
 #include <assert.h>
 #include "../include/map.hpp"
-#include "../common.hpp"
+#include "../include/common.hpp"
 #include "../include/utils.hpp"
 #include "../include/player.hpp"
 
@@ -79,10 +79,14 @@ Element* Map::createTreasure() {
         treasure_locations[treasure_location][0],
         treasure_locations[treasure_location][1],
         elements_types::TREASURE,
-        elements_outputs::TREASURE
+        elements_outputs::UNDISCOVERED
     );
     const int* treasurePosition = pTreasure->getPosition();
-    this->setElement(treasurePosition[0], treasurePosition[1], pTreasure);
+    this->setElement(
+        treasure_locations[treasure_location][0], 
+        treasure_locations[treasure_location][1], 
+        pTreasure
+    );
     return pTreasure;
 }
 
@@ -100,7 +104,7 @@ Element* Map::createEnemy() {
         enemy_x,
         enemy_y,
         elements_types::ENEMY,
-        elements_outputs::ENEMY
+        elements_outputs::UNDISCOVERED
     );
     this->setElement(enemy_x, enemy_y, enemy);
 
@@ -158,9 +162,17 @@ bool Map::setElement(int x, int y, Element* element) {
         case PATH: case PLAYER: // If the element is a path or player, just set the new element
             this->map[y][x] = element;
             return true;
-        case TREASURE: // If is a treasure the game is won, reveals the treasure
+        case TREASURE: // If is a treasure the game is won, reveals the treasure and the enemies
             this->map[y][x]->setOutput(type);
+            for(int i = 0; i < ENEMY_NUMBER; i++){
+                this->enemies[i]->setOutput(elements_types::ENEMY);
+            }
             this->game_state = WON;
+            return false;
+        case ENEMY: // If is an enemy the game is lost, reveals the enemy and the treasure
+            this->map[y][x]->setOutput(type);
+            this->pTreasure->setOutput(elements_types::TREASURE);
+            this->game_state = LOST;
             return false;
         default:
             assert(!"Not a valid Element type!");

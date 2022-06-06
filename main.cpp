@@ -15,7 +15,7 @@
 #include <windows.h>
 #include "include/map.hpp"
 #include "include/player.hpp"
-#include "common.hpp"
+#include "include/common.hpp"
 
 using namespace std;
 
@@ -144,7 +144,7 @@ void executeAction(int option, Player* player, Map* map, bool* moved) {
     }
 }
 
-// Finishe the game and display the result
+// Finish the game and display the result
 void finishGame(Map* map) {
     redraw(map);
 

@@ -13,7 +13,7 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
 
-#include "../common.hpp"
+#include "../include/common.hpp"
 
 class Element {
     public:

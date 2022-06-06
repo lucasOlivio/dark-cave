@@ -16,7 +16,7 @@
 #include <vector>
 #include "element.hpp"
 #include "player.hpp"
-#include "../common.hpp"
+#include "../include/common.hpp"
 
 using namespace std;
 

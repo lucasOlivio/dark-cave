@@ -1,9 +1,9 @@
-#include "../include/player.hpp"
-#include "../include/common.hpp"
+#include "player.hpp"
+#include "common.hpp"
 
 
 // Construct a new Player:: Player object
-Player::Player(): Element(
+Player::Player(void): Element(
     MAP_WIDTH/2, MAP_HEIGHT, // Set the player in the middle of the bottom of the map
     elements_types::PLAYER, 
     elements_outputs::PLAYER

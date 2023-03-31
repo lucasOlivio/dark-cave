@@ -16,7 +16,7 @@
 #include <vector>
 #include "element.hpp"
 #include "player.hpp"
-#include "../include/common.hpp"
+#include "common.hpp"
 
 using namespace std;
 
@@ -33,7 +33,7 @@ class Map {
          * @brief Display the map on terminal screen
          * 
          */
-        void displayMap();
+        void displayMap(void);
 
         /**
          * @brief Move the player 1 step in the map 
@@ -53,7 +53,7 @@ class Map {
          * @return The actual state of the game from the enum game_states
          * 
          */
-        game_states getState();
+        game_states getState(void);
 
         /**
          * @brief Sets a new state to the game
@@ -87,14 +87,14 @@ class Map {
          * 
          * @return Element* Treasure element
          */
-        Element* createTreasure();
+        Element* createTreasure(void);
 
         /**
          * @brief Creates a new enemy, randomizing its position
          * 
          * @return Element* Enemy element
          */
-        Element* createEnemy();
+        Element* createEnemy(void);
 
         /**
          * @brief Validate if the position is a valid map position

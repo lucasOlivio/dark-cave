@@ -12,10 +12,9 @@
 
 #include <iostream>
 #include <string>
-#include <windows.h>
-#include "include/map.hpp"
-#include "include/player.hpp"
-#include "include/common.hpp"
+#include "map.hpp"
+#include "player.hpp"
+#include "common.hpp"
 
 using namespace std;
 
@@ -30,7 +29,6 @@ void gameLoop();
 
 // Main controller of the program
 int main() {
-    SetConsoleOutputCP(437);
     mainMenu();
     return 0;
 }

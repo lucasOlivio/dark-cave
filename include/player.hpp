@@ -23,7 +23,7 @@ class Player: public Element {
          * @brief Construct a new Player:: Player object setting the default position, type and output.
          * 
          */
-        Player();
+        Player(void);
 
         /**
          * @brief Set a new position (x, y) for the player object in the map.

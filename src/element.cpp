@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include <assert.h>
-#include "../include/element.hpp"
+#include "element.hpp"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ void Element::setPosition(int x, int y) {
 }
 
 // Get the element's position (x, y) in the map
-int* Element::getPosition() {
+int* Element::getPosition(void) {
     return this->position;
 }
 
@@ -61,11 +61,11 @@ void Element::setOutput(elements_types element_type) {
 }
 
 // Get the output of the element
-char Element::getOutput() {
+char Element::getOutput(void) {
     return static_cast<char>(this->output);
 }
 
 // Get the type of the element
-elements_types Element::getType() {
+elements_types Element::getType(void) {
     return this->type;
 }

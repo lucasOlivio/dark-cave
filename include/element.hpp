@@ -13,7 +13,7 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
 
-#include "../include/common.hpp"
+#include "common.hpp"
 
 class Element {
     public:
@@ -46,7 +46,7 @@ class Element {
         /**
          * @brief Get the element's position (x, y) in the map
          */
-        int* getPosition();
+        int* getPosition(void);
 
         /**
          * @brief Set a new output for the element
@@ -58,13 +58,13 @@ class Element {
          * @brief Get the output of the element
          * 
          */
-        char getOutput();
+        char getOutput(void);
 
         /**
          * @brief Get the type of the element
          * 
          */
-        elements_types getType();
+        elements_types getType(void);
 
     protected:
         int position[2];

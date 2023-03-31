@@ -13,10 +13,10 @@
 #include <iostream>
 #include <vector>
 #include <assert.h>
-#include "../include/map.hpp"
-#include "../include/common.hpp"
-#include "../include/utils.hpp"
-#include "../include/player.hpp"
+#include "map.hpp"
+#include "common.hpp"
+#include "utils.hpp"
+#include "player.hpp"
 
 using namespace std;
 
@@ -67,7 +67,7 @@ vector<vector<Element*>> Map::createMap(int width, int height) {
 }
 
 // Creates the treasure, randomizing its position
-Element* Map::createTreasure() {
+Element* Map::createTreasure(void) {
     // Treasure only possible locations are in the middle of the sides of the map
     int treasure_locations[3][2] = {
         {0, MAP_HEIGHT / 2},
@@ -91,7 +91,7 @@ Element* Map::createTreasure() {
 }
 
 // Creates a new enemy, randomizing its position
-Element* Map::createEnemy() {
+Element* Map::createEnemy(void) {
     int enemy_x = randomNumber(0, MAP_WIDTH);
     int enemy_y = randomNumber(0, MAP_HEIGHT);
 
@@ -112,7 +112,7 @@ Element* Map::createEnemy() {
 }
 
 // Display the map on terminal screen
-void Map::displayMap() {
+void Map::displayMap(void) {
     cout << endl;
     for (int i = 0; i < this->map.size(); i++) {
         cout << CENTER_TEXT;
@@ -186,7 +186,7 @@ bool Map::isValidPosition(int x, int y) {
 }
 
 // Return the actual state of the game
-game_states Map::getState() {
+game_states Map::getState(void) {
     return this->game_state;
 }
 

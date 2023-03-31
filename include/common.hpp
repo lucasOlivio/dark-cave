@@ -23,11 +23,11 @@ const int MAP_WIDTH = 8;
 const int ENEMY_NUMBER = 4;
 
 enum class elements_outputs: char {
-    PLAYER = (char)127,
-    ENEMY = (char)6,
-    CLEARED = (char)250,
-    UNDISCOVERED = (char)176,
-    TREASURE = (char)4
+    PLAYER = 'P',
+    ENEMY = 'E',
+    CLEARED = '-',
+    UNDISCOVERED = 'X',
+    TREASURE = 'T'
 };
 
 enum elements_types {

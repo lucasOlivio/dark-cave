@@ -9,22 +9,17 @@ on:
         default: '1.0.0'
 
 jobs:
-  build:
+  build-release:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
     - name: CMake build
       run: make build
-
-  release:
-      runs-on: ubuntu-latest
-      name: Release game
-      steps:
-        # https://github.com/ncipollo/release-action
-      - name: create release
-        uses: ncipollo/release-action@v1.12.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          generateReleaseNotes: true
-          tag: v${{ github.event.inputs.version }}
-          artifacts: build/Debug/DarkCave.exe
+      # https://github.com/ncipollo/release-action
+    - name: create release
+      uses: ncipollo/release-action@v1.12.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        generateReleaseNotes: true
+        tag: v${{ github.event.inputs.version }}
+        artifacts: build/Debug/DarkCave.exe

@@ -21,7 +21,7 @@ To build the game, follow these steps:
 3. Run the build command:
 
     ```shell
-    make build
+    build.bat
     ```
 
 4. The built executable file will be located in the "build/Debug" directory. You can run the game by executing this file in the terminal:

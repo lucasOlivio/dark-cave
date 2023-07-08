@@ -38,4 +38,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           tag: v${{ github.event.inputs.version }}
-          artifacts: build/Debug/DarkCave.exe
+          artifacts: DarkCave.exe

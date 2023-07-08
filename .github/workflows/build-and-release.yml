@@ -14,13 +14,23 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: CMake build
-      run: build.bat
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: ./build.bat
+    - name: Upload exe
+      uses: actions/upload-artifact@v3
+      with:
+        name: DarkCave
+        path: build/Debug/DarkCave.exe
 
   release:
       needs: build
       runs-on: ubuntu-latest
       name: Release game
       steps:
+      - name: Download exe
+        uses: actions/download-artifact@v3
+        with:
+          name: DarkCave
         # https://github.com/ncipollo/release-action
       - name: create release
         uses: ncipollo/release-action@v1.12.0
